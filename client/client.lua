@@ -1,4 +1,4 @@
-local QRCore = exports['qr-core']:GetCoreObject()
+local RSGCore = exports['rsg-core']:GetCoreObject()
 local pianoPlayed = false
 
 RegisterNetEvent('rsg-piano:PianoPlay', function(position, heading, animation)
@@ -17,12 +17,12 @@ end)
 
 CreateThread(function()
     for k, v in pairs(Config.PianoLocation) do
-        exports['qr-core']:createPrompt("rsg-piano:Piano"..k, v.SitPosition, QRCore.Shared.Keybinds['J'], 'Play Piano', {
+        exports['rsg-core']:createPrompt("rsg-piano:Piano"..k, v.SitPosition, RSGCore.Shared.Keybinds['J'], 'Play Piano', {
             type = 'client',
             event = 'rsg-piano:PianoPlay',
             args = {v.SitPosition,v.SitHeading,v.Animation}
         })
-        exports['qr-core']:createPrompt("rsg-piano:PianoRemove"..k, v.SitPosition, QRCore.Shared.Keybinds['ENTER'], 'Get Up', {
+        exports['rsg-core']:createPrompt("rsg-piano:PianoRemove"..k, v.SitPosition, RSGCore.Shared.Keybinds['ENTER'], 'Get Up', {
             type = 'client',
             event = 'rsg-piano:PianoPause',
         })
@@ -37,8 +37,8 @@ end)
 AddEventHandler('onResourceStop', function(resourceName)
     if (GetCurrentResourceName() == resourceName) then
         for k,v in pairs(Config.PianoLocation) do 
-            exports['qr-core']:deletePrompt('rsg-piano:Piano'..k)
-            exports['qr-core']:deletePrompt('rsg-piano:PianoRemove'..k)
+            exports['rsg-core']:deletePrompt('rsg-piano:Piano'..k)
+            exports['rsg-core']:deletePrompt('rsg-piano:PianoRemove'..k)
         end
     end
 end)
